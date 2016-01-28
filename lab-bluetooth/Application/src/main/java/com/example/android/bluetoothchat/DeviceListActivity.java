@@ -153,6 +153,17 @@ public class DeviceListActivity extends Activity {
          * TODO: If the adapter is discoverying, cancel that discovery
          * TODO: Either way, then tell the adapter to startDiscovery
          */
+        if(mBtAdapter.isDiscovering()) {
+            mBtAdapter.cancelDiscovery();
+        }
+
+        mBtAdapter.startDiscovery();
+
+        IntentFilter filterFound = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(mReceiver, filterFound);
+
+        IntentFilter filterFinished = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        registerReceiver(mReceiver, filterFinished);
 
     }
 
